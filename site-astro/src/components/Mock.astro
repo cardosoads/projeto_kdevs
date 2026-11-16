@@ -1,0 +1,73 @@
+---
+// Ilustrações originais em HTML e CSS. Os rótulos são exemplos, não dados reais.
+interface Props { kind: string; alt: string }
+const { kind, alt } = Astro.props;
+---
+<figure class="scene" data-scene role="img" aria-label={alt}>
+  <div class="orbit" data-orbit aria-hidden="true">
+    <div class={`screen screen--${kind}`} data-screen>
+      {kind === 'web' && (
+        <>
+          <div class="m-bar"><i class="m-pill m-pill--wide"></i><i class="m-pill"></i></div>
+          <div class="m-web">
+            <div class="m-side"><i class="m-line m-line--on"></i><i class="m-line"></i><i class="m-line"></i><i class="m-line"></i></div>
+            <div class="m-main">
+              <p class="m-title">Pedidos</p>
+              <ul class="m-rows">
+                <li><span>Pedido recebido</span><b>Novo</b></li>
+                <li><span>Em separação</span><b>Hoje</b></li>
+                <li><span>Enviado ao cliente</span><b>Ontem</b></li>
+                <li><span>Entregue</span><b>Ok</b></li>
+              </ul>
+            </div>
+          </div>
+          <div class="pop pop--web">Novo pedido</div>
+        </>
+      )}
+      {kind === 'saas' && (
+        <>
+          <p class="m-title">Planos</p>
+          <div class="m-plans">
+            <div class="m-plan"><span>Básico</span><i class="m-line"></i><i class="m-line"></i><i class="m-line m-line--short"></i></div>
+            <div class="m-plan m-plan--on"><span>Equipe</span><i class="m-line"></i><i class="m-line"></i><i class="m-line"></i><i class="m-line m-line--short"></i></div>
+            <div class="m-plan"><span>Empresa</span><i class="m-line"></i><i class="m-line"></i><i class="m-line"></i><i class="m-line"></i></div>
+          </div>
+          <div class="pop pop--saas"><i class="m-dot"></i>Assinatura ativa</div>
+        </>
+      )}
+      {kind === 'custom' && (
+        <>
+          <div class="m-board">
+            <div class="m-col"><span>A fazer</span><i class="m-card"></i><i class="m-card"></i><i class="m-card"></i></div>
+            <div class="m-col"><span>Em andamento</span><i class="m-card"></i><i class="m-card m-card--gap"></i></div>
+            <div class="m-col"><span>Concluído</span><i class="m-card"></i><i class="m-card"></i></div>
+          </div>
+          <div class="pop pop--custom"><b>Conferir estoque</b><i class="m-line"></i><i class="m-line m-line--short"></i></div>
+        </>
+      )}
+      {kind === 'ia' && (
+        <>
+          <div class="m-chat">
+            <p class="m-bubble m-bubble--me">Resuma os chamados desta semana</p>
+            <div class="m-bubble">
+              <i class="m-line"></i><i class="m-line"></i><i class="m-line m-line--short"></i>
+              <div class="m-tags"><span>Entrega</span><span>Cobrança</span><span>Acesso</span></div>
+            </div>
+          </div>
+          <div class="m-input"><i class="m-line m-line--short"></i></div>
+          <div class="pop pop--ia"><i class="m-dot"></i>Fonte: dados da empresa</div>
+        </>
+      )}
+      {kind === 'data' && (
+        <>
+          <div class="m-schema">
+            <div class="m-table m-table--a"><b>clientes</b><span>id</span><span>nome</span><span>email</span></div>
+            <div class="m-table m-table--c"><b>itens</b><span>id</span><span>pedido_id</span><span>produto</span></div>
+            <i class="m-link m-link--ab"></i><i class="m-link m-link--bc"></i>
+          </div>
+          <div class="pop pop--data m-table"><b>pedidos</b><span>id</span><span>cliente_id</span><span>status</span></div>
+        </>
+      )}
+    </div>
+  </div>
+</figure>

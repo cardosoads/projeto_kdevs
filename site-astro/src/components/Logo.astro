@@ -1,0 +1,7 @@
+---
+interface Props { href?: string }
+const { href = '/' } = Astro.props;
+---
+<a class="logo" href={href} aria-label="KDevs, início">
+  <span>KDevs</span><i class="logo__cursor" aria-hidden="true"></i>
+</a>

@@ -1,0 +1,24 @@
+---
+// Fundo decorativo de seção. Cada variação tem um desenho próprio da identidade (pontos,
+// anéis, fluxo, código, cruzes). O CSS já entrega a versão estática; main.ts dá movimento.
+interface Props { kind: 'dots' | 'rings' | 'flow' | 'code' | 'cross' }
+const { kind } = Astro.props;
+const line = 'const build=(idea)=>ship(test(code(idea))); '.repeat(10);
+---
+<div class={`ambient ambient--${kind}`} data-ambient={kind} aria-hidden="true">
+  <i class="ambient__tint" data-drift></i>
+  {(kind === 'dots' || kind === 'cross') && (
+    <>
+      <i class="ambient__lit ambient__lit--idle" data-wander data-cell={kind === 'dots' ? 28 : 40}></i>
+      <i class="ambient__lit" data-spot data-cell={kind === 'dots' ? 28 : 40}></i>
+    </>
+  )}
+  {kind === 'rings' && <i class="ambient__rings" data-spot data-rest><i data-pulse></i></i>}
+  {kind === 'flow' && [200, 320, 260, 380].map((period) => <i class="ambient__track" data-track data-period={period}></i>)}
+  {kind === 'code' && (
+    <>
+      {[0, 1, 2, 3, 4, 5].map(() => <span class="ambient__row" data-row>{line}</span>)}
+      <i class="ambient__halo" data-spot></i>
+    </>
+  )}
+</div>

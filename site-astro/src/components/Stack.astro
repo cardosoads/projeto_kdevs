@@ -1,0 +1,43 @@
+---
+import Ambient from './Ambient.astro';
+import { stack } from '../site';
+import { logos } from '../logos';
+---
+<section id="tecnologias" class="band has-ambient" aria-labelledby="tecnologias-title">
+  <Ambient kind="code" />
+  <div class="section wrap techs" data-techs>
+    <div class="section__head techs__head">
+      <h2 id="tecnologias-title">Com o que trabalhamos</h2>
+      <p>A escolha depende do projeto. Estas são as tecnologias que já usamos, organizadas pela camada do sistema em que atuam.</p>
+    </div>
+    <div class="cosmos" data-cosmos>
+      <div class="cosmos__sys" data-cosmos-sys>
+        <span class="cosmos__core" aria-hidden="true">K<i></i></span>
+        {stack.map((layer, index) => (
+          <ul class={`ring ring--${index + 1}`} data-ring={index} data-n={layer.items.length} aria-label={layer.group}>
+            {layer.items.map((item) => (
+              <li>
+                <span class={`tech tech--${item.logo || 'text'}`} data-tech>
+                  {item.logo
+                    ? <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={logos[item.logo]} /></svg>
+                    : <b aria-hidden="true">{item.name}</b>}
+                  <span class="tech__name">{item.name}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+    <ol class="techs__legend" aria-hidden="true">
+      {stack.map((layer, index) => (
+        <li data-legend={index}>
+          <i class="techs__key"></i>
+          <span class="techs__group">{layer.group}</span>
+          <span class="techs__text">{layer.text}</span>
+          <span class="techs__names">{layer.items.map((item) => item.name).join(' · ')}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
