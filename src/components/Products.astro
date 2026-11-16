@@ -1,0 +1,28 @@
+---
+import Mock from './Mock.astro';
+import Ambient from './Ambient.astro';
+import { products } from '../site';
+---
+<section id="produtos" class="has-ambient" aria-labelledby="produtos-title">
+  <Ambient kind="dots" />
+  <div class="section wrap">
+  <div class="section__head">
+    <h2 id="produtos-title">O que a KDevs constrói</h2>
+    <p>Cada projeto começa pelo problema, não pela tecnologia. Estas são as frentes em que trabalhamos e o que cada uma entrega.</p>
+  </div>
+  <div class="products">
+    {products.map((item) => (
+      <article class="product">
+        <div class="product__text">
+          <h3><i class="mark" aria-hidden="true"></i>{item.name}</h3>
+          <p class="product__lead">{item.lead}</p>
+          <ul class="product__points">
+            {item.points.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+        <Mock kind={item.kind} alt={item.alt} />
+      </article>
+    ))}
+  </div>
+  </div>
+</section>

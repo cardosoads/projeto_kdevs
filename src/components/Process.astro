@@ -1,0 +1,26 @@
+---
+import Ambient from './Ambient.astro';
+import { steps } from '../site';
+---
+<section id="processo" class="has-ambient" aria-labelledby="processo-title">
+  <Ambient kind="flow" />
+  <div class="section wrap">
+    <div class="section__head">
+      <h2 id="processo-title">Como um projeto anda</h2>
+      <p>Cinco etapas, na ordem em que acontecem. Você acompanha cada uma.</p>
+    </div>
+    <div class="process" data-process>
+      <div class="process__rail" aria-hidden="true"><i class="process__fill" data-process-fill></i></div>
+      <ol class="process__steps">
+        {steps.map((step, index) => (
+          <li class="process__step" data-process-step>
+            <i class="process__dot" aria-hidden="true"></i>
+            <span class="process__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{step.name}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

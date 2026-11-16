@@ -1,58 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# KDevs — site de kdevs.tech
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Site estático de apresentação da KDevs. Astro 7, GSAP 3 (movimento) e fontes locais
+(Bricolage Grotesque, Instrument Sans, JetBrains Mono via Fontsource). Sem backend,
+formulário, analytics ou recurso de terceiros.
 
-## About Laravel
+## Comandos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+| Comando | O que faz |
+| --- | --- |
+| `npm install` | Instala as dependências |
+| `npm run dev` | Servidor local de desenvolvimento |
+| `npm run build` | Gera o site em `dist/` |
+| `npm run check:csp` | Confere que o HTML gerado respeita a CSP de `vercel.json` |
+| `npm run preview` | Serve `dist/` localmente |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Onde editar
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- `src/site.ts`: textos de produtos, situações, etapas, tecnologias e opções da mensagem.
+- `src/styles/global.css`: cores, tipografia e layout.
+- `src/scripts/`: marca em caracteres do topo, movimento (GSAP) e montagem da mensagem.
 
-## Learning Laravel
+## Pendências antes de publicar
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **WhatsApp.** Defina `PUBLIC_WHATSAPP_NUMBER` (só dígitos, com DDI e DDD) no ambiente
+   de build da Vercel ou em `.env`. Sem ela, o site mostra apenas "Copiar mensagem" e um
+   aviso de que o WhatsApp ainda não está ligado; nenhum link é gerado.
+2. **Textos.** Produtos, situações e etapas do processo em `src/site.ts` são rascunho e precisam de
+   confirmação da KDevs.
+3. **Imagem de compartilhamento.** Não há `og:image`; falta uma arte da marca.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Vercel
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+`vercel.json` define build, URLs limpas e cabeçalhos de segurança: CSP sem código inline
+nem origens externas, HSTS, `nosniff`, bloqueio de iframe, `Referrer-Policy`,
+`Permissions-Policy` e cache imutável para `/_astro/`. Nenhum deploy foi feito.
 
-## Agentic Development
+Ao adicionar scripts, estilos ou serviços externos, ajuste a CSP e rode `npm run check:csp`.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Movimento e acessibilidade
 
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Tecnologias: órbitas por camada com os logos (`src/components/Stack.astro`, traçados em
+  `src/logos.ts`, fontes e licenças em `LOGOS.md`). Giram devagar, quase param sob o ponteiro
+  e destacam a camada apontada; cada logo tem o nome em texto para leitores de tela.
+- Cada seção abaixo do topo tem um fundo próprio (`src/components/Ambient.astro`): malha de
+  pontos, anéis, linhas de fluxo, linhas de código e malha de cruzes. Focos seguem o ponteiro
+  ou passeiam sozinhos, as linhas de fluxo aceleram com a rolagem e os laços pausam fora da
+  tela. São camadas decorativas (`aria-hidden`), animadas só por transform e opacidade.
+- A marca do topo "compila" uma vez e reage ao ponteiro; as ilustrações de produto são
+  telas em 3D (CSS, sem biblioteca extra) que giram alguns graus com a rolagem e inclinam
+  para o ponteiro; o trilho do processo avança com a rolagem; um marcador acompanha a
+  situação sob o ponteiro.
+- As ilustrações ficam em `src/components/Mock.astro`: HTML e CSS originais, com rótulos de
+  exemplo. Não são capturas de produtos reais.
+- Com `prefers-reduced-motion: reduce` ou sem JavaScript, tudo aparece estático e completo;
+  as telas mantêm só a inclinação fixa do CSS.
+- O canvas é decorativo (`aria-hidden`); todo o conteúdo está no HTML e funciona sem JavaScript,
+  exceto a prévia dinâmica da mensagem e o botão de copiar.
