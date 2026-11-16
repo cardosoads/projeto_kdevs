@@ -1,0 +1,24 @@
+---
+import Ambient from './Ambient.astro';
+import { situations } from '../site';
+---
+<section id="ajuda" class="band has-ambient" aria-labelledby="ajuda-title">
+  <Ambient kind="rings" />
+  <div class="section wrap">
+    <div class="section__head">
+      <h2 id="ajuda-title">Como podemos ajudar</h2>
+      <p>Quem procura a KDevs costuma chegar com uma destas situações. Veja por onde começamos em cada uma.</p>
+    </div>
+    <div class="services" data-services>
+      <i class="services__marker" data-services-marker aria-hidden="true"></i>
+      <ul class="services__list">
+        {situations.map((item) => (
+          <li class="services__row" data-services-row>
+            <h3>{item.say}</h3>
+            <p>{item.help}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

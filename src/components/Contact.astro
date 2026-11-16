@@ -1,0 +1,47 @@
+---
+import Ambient from './Ambient.astro';
+import { brief, composeMessage, site, whatsappUrl } from '../site';
+const initial = composeMessage(brief.needs[0].phrase, brief.stages[0].phrase);
+const url = whatsappUrl(initial);
+---
+<section id="contato" class="contact has-ambient" aria-labelledby="contato-title">
+  <Ambient kind="cross" />
+  <div class="section wrap contact__grid">
+    <div class="section__head">
+      <h2 id="contato-title">Conte o que você precisa</h2>
+      <p>Marque as opções e a mensagem fica pronta para enviar pelo WhatsApp. Nada é enviado por este site.</p>
+    </div>
+    <form class="brief" data-brief data-whatsapp={site.whatsappNumber} novalidate>
+      <fieldset>
+        <legend>O que você precisa</legend>
+        <div class="chips">
+          {brief.needs.map((item, index) => (
+            <label class="chip"><input type="radio" name="need" value={item.phrase} checked={index === 0} /><span>{item.label}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Em que ponto está</legend>
+        <div class="chips">
+          {brief.stages.map((item, index) => (
+            <label class="chip"><input type="radio" name="stage" value={item.phrase} checked={index === 0} /><span>{item.label}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="brief-detail">Algum detalhe <span class="field__hint">opcional, até 280 caracteres</span></label>
+        <textarea id="brief-detail" name="detail" rows="3" maxlength="280"></textarea>
+      </div>
+      <div class="brief__result">
+        <p class="brief__label" id="brief-preview-label">Sua mensagem</p>
+        <p class="brief__preview" data-brief-preview aria-labelledby="brief-preview-label">{initial}</p>
+        <div class="brief__actions">
+          {url && <a class="button button--accent" data-brief-open href={url} target="_blank" rel="noopener noreferrer">Abrir no WhatsApp</a>}
+          <button class={`button ${url ? 'button--ghost' : 'button--accent'}`} type="button" data-brief-copy hidden>Copiar mensagem</button>
+        </div>
+        {!url && <p class="brief__pending">O WhatsApp da KDevs ainda não está ligado a este site. Por enquanto, copie a mensagem.</p>}
+        <p class="brief__status" data-brief-status role="status"></p>
+      </div>
+    </form>
+  </div>
+</section>

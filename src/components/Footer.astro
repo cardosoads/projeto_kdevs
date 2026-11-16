@@ -1,0 +1,18 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../site';
+---
+<footer class="footer">
+  <div class="wrap footer__row">
+    <Logo href="#conteudo" />
+    <nav class="footer__nav" aria-label="Rodapé">
+      <a href="#produtos">Produtos</a>
+    <a href="#ajuda">Como ajudamos</a>
+      <a href="#processo">Processo</a>
+      <a href="#tecnologias">Tecnologias</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <p class="footer__meta">{site.domain} · {new Date().getFullYear()}</p>
+    <p class="footer__credit">Os logos de tecnologias pertencem aos seus donos e aparecem só para indicar o que usamos. Logo do Git por Jason Long, <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener noreferrer">CC BY 3.0</a>. Logo do PHP por Colin Viebrock, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer">CC BY-SA 4.0</a>. Versões em uma cor do projeto Simple Icons.</p>
+  </div>
+</footer>
